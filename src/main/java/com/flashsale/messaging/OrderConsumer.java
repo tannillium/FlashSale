@@ -1,0 +1,3 @@
+package com.flashsale.messaging;
+import com.flashsale.domain.*; import org.springframework.kafka.annotation.KafkaListener; import org.springframework.stereotype.Component; import org.springframework.transaction.annotation.Transactional;
+@Component public class OrderConsumer { private final SaleOrderRepository orders; public OrderConsumer(SaleOrderRepository orders){this.orders=orders;} @KafkaListener(topics="${flashsale.kafka.order-topic:flashsale.orders.v1}",groupId="flashsale-order-workers") @Transactional public void consume(OrderEvent event){if(orders.existsByIdempotencyKey(event.idempotencyKey()))return;orders.save(new SaleOrder(event.orderId(),event.productId(),event.customerId(),event.idempotencyKey()));} }

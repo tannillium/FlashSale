@@ -1,0 +1,20 @@
+spring:
+  application.name: flashsale
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/flashsale}
+    username: ${POSTGRES_USER:flashsale}
+    password: ${POSTGRES_PASSWORD:flashsale}
+  jpa.hibernate.ddl-auto: validate
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      auto-offset-reset: earliest
+      properties.spring.json.trusted.packages: com.flashsale.messaging
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer.properties.spring.json.value.default.type: com.flashsale.messaging.OrderEvent
+  data.redis.host: ${REDIS_HOST:localhost}
+  data.redis.port: ${REDIS_PORT:6379}
+management.endpoints.web.exposure.include: health,info
+flashsale.kafka.order-topic: flashsale.orders.v1
