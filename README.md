@@ -50,7 +50,3 @@ Building a standard CRUD app is easy, but making an app survive a massive traffi
 ## Project Summary
 
 FlashSale is a distributed flash-sale system designed to handle extreme concurrency without losing consistency. The idea is simple: validate inventory quickly, push events asynchronously, and let background workers persist the final order state safely. This architecture is a strong example of how to scale high-throughput e-commerce flows while maintaining correctness.
-
----
-
-> “Building a CRUD app is easy. Building a distributed system that stays calm and mathematically perfect when 100,000 people are screaming at it is a whole different puzzle.”
